@@ -16,9 +16,11 @@ class blogController extends Controller
 
     $formattedBlogs = $blogs->map(function ($blog) {
       return [
+        "id" => $blog->id,
         "title" => $blog->title,
         "author" => $blog->author,
         "url" => $blog->url,
+        "likes" => $blog->likes,
         "user" => [
           "id" => $blog->user->id,
           "name" => $blog->user->name,
@@ -40,7 +42,7 @@ class blogController extends Controller
       "status" => 200,
       "data" => $formattedBlogs
     ];
-    return response()->json($data);
+    return response()->json($formattedBlogs);
   }
 
   public function createBlog(Request $request)
@@ -120,7 +122,7 @@ class blogController extends Controller
       "data" => $formattedBlog
     ];
 
-    return response()->json($data, 200);
+    return response()->json($formattedBlog, 200);
   }
 
   public function deleteOneBlog($id)
@@ -184,7 +186,7 @@ class blogController extends Controller
       "data" => $blog
     ];
 
-    return response()->json($data, 200);
+    return response()->json($blog, 200);
   }
 
   public function editPartialOneBlog(Request $request, $id)
@@ -235,6 +237,6 @@ class blogController extends Controller
       "data" => $blog
     ];
 
-    return response()->json($data, 200);
+    return response()->json($blog, 200);
   }
 }
